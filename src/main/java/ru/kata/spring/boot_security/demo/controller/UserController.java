@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping("/")
     public String homePage() {
-        return "redirect:/login";
+        return "redirect:/mylogin";
     }
 
     @GetMapping("/user")
