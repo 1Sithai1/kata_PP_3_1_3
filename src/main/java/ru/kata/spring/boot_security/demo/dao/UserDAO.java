@@ -24,7 +24,6 @@ public interface UserDAO {
 
     Role findRoleByName(String roleName);
 
-
     String userPass(Long id);
 
 }

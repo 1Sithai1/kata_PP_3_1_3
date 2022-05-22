@@ -83,5 +83,4 @@ public class UserService implements UserDetailsService {
     public String userPass(Long id){
         return userDAO.userPass(id);
     }
-
 }

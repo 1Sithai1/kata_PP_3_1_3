@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -36,20 +37,27 @@ public class AdminController {
         return userService.findUserByID(id);
     }
 
+    @PostMapping("/admin/newUser")
+    public String create(@ModelAttribute("newUser") User user) {
+        userService.addUser(user);
+        return "redirect:/admin";
+    }
+
     @PatchMapping("/admin/edit/{id}")
     public String update(@ModelAttribute("editUser")
                          User user,
-                         @RequestParam(value = "role", required = false) String[] roles,
+                         @RequestParam(value = "roles", required = false) String[] roles,
                          @PathVariable("id") Long id) {
         Set<Role> roleSet = new HashSet<>();
-        if (roles == null) {
-            user.setRoles(userService.getUserId(id).getRoles());
-        } else {
-            for (String role : roles) {
-                roleSet.add(userService.findRoleByName(role));
-                user.setRoles(roleSet);
+        List<Role> allRoles = userService.allRoles();
+        for (String roleByForm : roles) {
+            for (Role role : allRoles) {
+                if (role.getAuthority().equals(roleByForm)) {
+                    roleSet.add(role);
+                }
             }
         }
+        user.setRoles(roleSet);
         userService.editUser(id, user);
         return "redirect:/admin";
     }
@@ -57,12 +65,6 @@ public class AdminController {
     @DeleteMapping("/admin/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/admin";
-    }
-
-    @PostMapping("/admin/newUser")
-    public String create(@ModelAttribute("newUser") User user) {
-        userService.addUser(user);
         return "redirect:/admin";
     }
 }

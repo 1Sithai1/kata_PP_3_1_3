@@ -107,6 +107,7 @@
                                                         <form class="needs-validation" th:method="PATCH"
                                                               th:action="@{/admin/edit/{id}(id = ${oneUser.id})}"
                                                               th:object="${oneUser}" novalidate>
+<!--                                                            th:action="@{/admin/edit/{id}(id = ${oneUser.id})}"-->
                                                             <!--ID-->
                                                             <div class="form-group row justify-content-center align-items-center"
                                                                  id="EditUserTest">
@@ -114,7 +115,7 @@
                                                                     <strong><label for="idUserTest"
                                                                                    class="form-label">ID</label></strong>
                                                                     <input type="text" class="form-control"
-                                                                           th:value="*{id}" id="idUserTest" disabled>
+                                                                           th:value="*{id}" id="idUserTest" name="id" disabled>
                                                                 </div>
                                                             </div>
                                                             <!--Name-->
@@ -183,7 +184,7 @@
                                                                     <select class="form-select" size="2" multiple
                                                                             aria-label="multiple select example"
                                                                             id="selectEdit" th:value="*{roles}"
-                                                                            name="role">
+                                                                            name="roles">
                                                                         <option th:each="role : ${roleList}"
                                                                                 th:value="${role.name}"
                                                                                 th:text="${role.name}">
