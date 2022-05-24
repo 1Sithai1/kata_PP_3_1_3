@@ -18,12 +18,14 @@ public interface UserDAO {
 
     User findByUsername(String username);
 
-    User findUserByID(Long id);
-
     List<Role> allRoles();
 
     Role findRoleByName(String roleName);
 
     String userPass(Long id);
+
+    User findUserById(Long id);
+
+    Role findRoleById(Long roleId);
 
 }

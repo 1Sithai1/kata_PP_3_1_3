@@ -52,10 +52,6 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public User getUserId(Long id) {
-        return userDAO.getUserId(id);
-    }
-
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDAO.findByUsername(username);
         if (user == null) {
@@ -68,19 +64,15 @@ public class UserService implements UserDetailsService {
         return userDAO.findByUsername(username);
     }
 
-    public User findUserByID(Long id) {
-        return userDAO.findUserByID(id);
-    }
-
     public List<Role> allRoles() {
         return userDAO.allRoles();
     }
 
-    public Role findRoleByName(String roleName) {
-        return userDAO.findRoleByName(roleName);
-    }
-
     public String userPass(Long id){
         return userDAO.userPass(id);
+    }
+
+    public User findUserById(Long id) {
+        return userDAO.findUserById(id);
     }
 }

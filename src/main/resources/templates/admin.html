@@ -107,7 +107,7 @@
                                                         <form class="needs-validation" th:method="PATCH"
                                                               th:action="@{/admin/edit/{id}(id = ${oneUser.id})}"
                                                               th:object="${oneUser}" novalidate>
-<!--                                                            th:action="@{/admin/edit/{id}(id = ${oneUser.id})}"-->
+                                                            <!--                                                            @{/admin/edit/{id}(id = ${oneUser.id})}-->
                                                             <!--ID-->
                                                             <div class="form-group row justify-content-center align-items-center"
                                                                  id="EditUserTest">
@@ -115,7 +115,10 @@
                                                                     <strong><label for="idUserTest"
                                                                                    class="form-label">ID</label></strong>
                                                                     <input type="text" class="form-control"
-                                                                           th:value="*{id}" id="idUserTest" name="id" disabled>
+                                                                           th:value="*{id}" id="idUserTest" name="id"
+                                                                           disabled>
+                                                                    <input type="text" class="form-control"
+                                                                           th:value="*{id}" name="id" hidden>
                                                                 </div>
                                                             </div>
                                                             <!--Name-->
@@ -183,11 +186,12 @@
                                                                     <strong><label for="selectEdit" class="form-label">Role</label></strong>
                                                                     <select class="form-select" size="2" multiple
                                                                             aria-label="multiple select example"
-                                                                            id="selectEdit" th:value="*{roles}"
-                                                                            name="roles">
+                                                                            id="selectEdit"
+                                                                            name="roles" th:value="*{roles}">
                                                                         <option th:each="role : ${roleList}"
-                                                                                th:value="${role.name}"
-                                                                                th:text="${role.name}">
+                                                                                th:value="${role.id}"
+                                                                                th:text="${role.name}"
+                                                                                th:selected="${role.name} == USER">
                                                                         </option>
                                                                     </select><br>
                                                                 </div>

@@ -9,9 +9,8 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdminController {
@@ -34,7 +33,7 @@ public class AdminController {
     @GetMapping("/admin/findUser")
     @ResponseBody
     public User findUserById(Long id) {
-        return userService.findUserByID(id);
+        return userService.findUserById(id);
     }
 
     @PostMapping("/admin/newUser")
@@ -44,21 +43,9 @@ public class AdminController {
     }
 
     @PatchMapping("/admin/edit/{id}")
-    public String update(@ModelAttribute("editUser")
-                         User user,
-                         @RequestParam(value = "roles", required = false) String[] roles,
+    public String update(@ModelAttribute("editUser") User user,
                          @PathVariable("id") Long id) {
-        Set<Role> roleSet = new HashSet<>();
-        List<Role> allRoles = userService.allRoles();
-        for (String roleByForm : roles) {
-            for (Role role : allRoles) {
-                if (role.getAuthority().equals(roleByForm)) {
-                    roleSet.add(role);
-                }
-            }
-        }
-        user.setRoles(roleSet);
-        userService.editUser(id, user);
+            userService.editUser(id, user);
         return "redirect:/admin";
     }
 
